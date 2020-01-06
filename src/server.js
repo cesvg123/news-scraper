@@ -5,7 +5,7 @@ var mongoose = require("mongoose");
 var PORT = process.env.PORT || 3000;
 
 var app = express();
-app.use.(logger(dev));
+app.use(logger(dev));
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
