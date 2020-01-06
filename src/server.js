@@ -57,17 +57,6 @@ app.get("/", function (req, res) {
     });
 });
 
-app.get("/saved", function (req, res) {
-    Article.find({
-        "saved": true
-    }).populate("notes").exec(function (error, articles) {
-        var hbsObject = {
-            article: articles
-        };
-        res.render("saved", hbsObject);
-    });
-});
-
 app.get("/scrape", function (req, res) {
     request("https://www.nytimes.com/", function (error, response, html) {
         var $ = cheerio.load(html);
@@ -91,6 +80,17 @@ app.get("/scrape", function (req, res) {
     });
 });
 
+app.get("/saved", function (req, res) {
+    Article.find({
+        "saved": true
+    }).populate("notes").exec(function (error, articles) {
+        var hbsObject = {
+            article: articles
+        };
+        res.render("saved", hbsObject);
+    });
+});
+
 app.get("/articles", function (req, res) {
     Article.find({}).limit(10).exec(function (error, doc) {
         if (error) {
@@ -99,20 +99,6 @@ app.get("/articles", function (req, res) {
             res.json(doc);
         }
     });
-});
-
-app.get("/articles/:id", function (req, res) {
-    Article.findOne({
-            "_id": req.params.id
-        })
-        .populate("note")
-        .exec(function (error, doc) {
-            if (error) {
-                console.log(error);
-            } else {
-                res.json(doc);
-            }
-        });
 });
 
 app.post("/articles/save/:id", function (req, res) {
@@ -127,6 +113,20 @@ app.post("/articles/save/:id", function (req, res) {
             } else {
                 console.log(doc);
                 res.send(doc);
+            }
+        });
+});
+
+app.get("/articles/:id", function (req, res) {
+    Article.findOne({
+            "_id": req.params.id
+        })
+        .populate("note")
+        .exec(function (error, doc) {
+            if (error) {
+                console.log(error);
+            } else {
+                res.json(doc);
             }
         });
 });
