@@ -1,6 +1,8 @@
 var express = require("express");
+var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
+var path = require("path");
 
 var PORT = process.env.PORT || 3000;
 
@@ -23,5 +25,5 @@ useNewUrlParser: true,
 useFindAndModify: false
 });
 app.listen(PORT, () => {
-console.log(`app listening on locahost/${PORT}`);
+console.log(`App running on Port:` + PORT);
 });
