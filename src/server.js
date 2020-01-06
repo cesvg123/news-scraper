@@ -4,6 +4,9 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 var path = require("path");
 
+var Note = require("./models/Note");
+var Article = require("./models/Article");
+
 var PORT = process.env.PORT || 3000;
 
 var app = express();
