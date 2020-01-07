@@ -33,7 +33,8 @@ mongoose.connect(MONGODB_URI, {
 var exphbs = require('express-handlebars');
 app.engine("handlebars", exphbs({
     defaultLayout: "main",
-    partialsDir: path.join(__dirname, "/views")
+    layoutsDir: path.join(__dirname, "/views/layouts/"),
+    partialsDir: path.join(__dirname, "/views/")
 }));
 app.set("view engine", "handlebars");
 
@@ -44,6 +45,8 @@ app.set("view engine", "handlebars");
 // db.once("open", function () {
 //     console.log("Successfull DB connection");
 // });
+
+app.use(express.static("./src/public/"))
 
 app.get("/", function (req, res) {
     Article.find({
