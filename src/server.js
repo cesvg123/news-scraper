@@ -33,7 +33,7 @@ mongoose.connect(MONGODB_URI, {
 var exphbs = require('express-handlebars');
 app.engine("handlebars", exphbs({
     defaultLayout: "main",
-    partialsDir: path.join(__dirname, "/views/layouts/partials")
+    partialsDir: path.join(__dirname, "/views")
 }));
 app.set("view engine", "handlebars");
 
@@ -42,7 +42,7 @@ db.on("error", function (error) {
 });
 
 db.once("open", function () {
-    console.log("Mongoose connection successful.");
+    console.log("Successfull DB connection");
 });
 
 app.get("/", function (req, res) {
