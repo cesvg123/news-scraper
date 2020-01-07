@@ -13,7 +13,7 @@ var cheerio = require("cheerio");
 var PORT = process.env.PORT || 3000;
 
 var app = express();
-app.use(logger(dev));
+app.use(logger("dev"));
 
 app.use(express.urlencoded({
     extended: false
@@ -37,13 +37,13 @@ app.engine("handlebars", exphbs({
 }));
 app.set("view engine", "handlebars");
 
-db.on("error", function (error) {
-    console.log("Mongoose Error: ", error);
-});
+// db.on("error", function (error) {
+//     console.log("Mongoose Error: ", error);
+// });
 
-db.once("open", function () {
-    console.log("Successfull DB connection");
-});
+// db.once("open", function () {
+//     console.log("Successfull DB connection");
+// });
 
 app.get("/", function (req, res) {
     Article.find({
