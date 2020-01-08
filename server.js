@@ -38,14 +38,6 @@ app.engine("handlebars", exphbs({
 }));
 app.set("view engine", "handlebars");
 
-// db.on("error", function (error) {
-//     console.log("Mongoose Error: ", error);
-// });
-
-// db.once("open", function () {
-//     console.log("Successfull DB connection");
-// });
-
 app.use(express.static("./src/public/"))
 
 app.get("/", function (req, res) {
