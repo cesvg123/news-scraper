@@ -65,9 +65,9 @@ app.get("/scrape", function (req, res) {
         var $ = cheerio.load(html);
         $("article").each(function (i, element) {
             var result = {};
-            result.title = $(this).children("h2").text();
-            result.link = $(this).children("h2").children("a").attr("href");
-            result.summary = $(this).children(".summary").text();
+            result.title = $(this).find("h2").text();
+            result.link = $(this).find("a").attr("href");
+            result.summary = $(this).find("p").text();
 
             var entry = new Article(result);
 
@@ -82,6 +82,20 @@ app.get("/scrape", function (req, res) {
         res.send("Process completed");
     });
 });
+
+app.post("/article", (req, res) => {
+    Article.create({
+            title: "hi",
+            summary: "hi",
+            link: "hi",
+            saved: true
+        }).then(data => {
+            res.json(data)
+        })
+        .catch(err => {
+            if (err) throw err
+        })
+})
 
 app.get("/saved", function (req, res) {
     Article.find({
