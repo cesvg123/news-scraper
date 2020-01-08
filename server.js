@@ -42,6 +42,7 @@ app.use(express.static("./src/public/"))
 
 app.get("/", function (req, res) {
     Article.find({
+        "saved": false
     }).limit(10).exec(function (error, data) {
         var hbsObject = {
             article: data
@@ -59,7 +60,7 @@ app.get("/scrape", function (req, res) {
             result.title = $(this).find("h2").text();
             result.link = "https://www.nytimes.com" + $(this).find("a").attr("href");
             result.summary = $(this).find("p").text();
-        
+
 
             var entry = new Article(result);
 
