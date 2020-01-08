@@ -59,6 +59,7 @@ app.get("/scrape", function (req, res) {
             result.title = $(this).find("h2").text();
             result.link = "https://www.nytimes.com" + $(this).find("a").attr("href");
             result.summary = $(this).find("p").text();
+        
 
             var entry = new Article(result);
 
@@ -74,19 +75,6 @@ app.get("/scrape", function (req, res) {
     });
 });
 
-// app.post("/article", (req, res) => {
-//     Article.create({
-//             title: "hi",
-//             summary: "hi",
-//             link: "hi",
-//             saved: true
-//         }).then(data => {
-//             res.json(data)
-//         })
-//         .catch(err => {
-//             if (err) throw err
-//         })
-// })
 
 app.get("/saved", function (req, res) {
     Article.find({
