@@ -50,8 +50,7 @@ app.use(express.static("./src/public/"))
 
 app.get("/", function (req, res) {
     Article.find({
-        "saved": false
-    }).limit(20).exec(function (error, data) {
+    }).limit(10).exec(function (error, data) {
         var hbsObject = {
             article: data
         };
@@ -66,7 +65,7 @@ app.get("/scrape", function (req, res) {
         $("article").each(function (i, element) {
             var result = {};
             result.title = $(this).find("h2").text();
-            result.link = $(this).find("a").attr("href");
+            result.link = "www.nytimes.com" + $(this).find("a").attr("href");
             result.summary = $(this).find("p").text();
 
             var entry = new Article(result);
@@ -83,19 +82,19 @@ app.get("/scrape", function (req, res) {
     });
 });
 
-app.post("/article", (req, res) => {
-    Article.create({
-            title: "hi",
-            summary: "hi",
-            link: "hi",
-            saved: true
-        }).then(data => {
-            res.json(data)
-        })
-        .catch(err => {
-            if (err) throw err
-        })
-})
+// app.post("/article", (req, res) => {
+//     Article.create({
+//             title: "hi",
+//             summary: "hi",
+//             link: "hi",
+//             saved: true
+//         }).then(data => {
+//             res.json(data)
+//         })
+//         .catch(err => {
+//             if (err) throw err
+//         })
+// })
 
 app.get("/saved", function (req, res) {
     Article.find({
