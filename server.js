@@ -20,7 +20,7 @@ app.use(express.urlencoded({
 }));
 
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static("./public"));
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/news-scraper";
 
@@ -128,20 +128,16 @@ app.get("/articles/:id", function (req, res) {
         });
 });
 
-app.post("/articles/delete/:id", function (req, res) {
+app.delete("/articles/delete/:id", function (req, res) {
     Article.findOneAndUpdate({
             "_id": req.params.id
         }, {
             "saved": false,
             "notes": []
         })
-        .exec(function (err, doc) {
-            if (err) {
-                console.log(err);
-            } else {
+        .then(function (doc) {
                 console.log(doc);
                 res.send(doc);
-            }
         });
 });
 
